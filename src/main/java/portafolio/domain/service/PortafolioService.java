@@ -34,6 +34,7 @@ public class PortafolioService {
             portafolioExisting.setDescripcion(portafolio.getDescripcion());
             portafolioExisting.setUrlrepo(portafolio.getUrlrepo());
             portafolioExisting.setLenguaje(portafolio.getLenguaje());
+            portafolioExisting.setImagen(portafolio.getImagen());
             portafolioRepository.save(portafolioExisting);
         }
     }
