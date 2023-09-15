@@ -1,41 +1,65 @@
 package portafolio.domain.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import portafolio.domain.models.Portafolio;
 import portafolio.infra.repositories.PortafolioRepository;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class PortafolioService {
     private final PortafolioRepository portafolioRepository;
+    private final Cloudinary cloudinary;
 
     @Autowired
-    public PortafolioService(PortafolioRepository portafolioRepository) {
+    public PortafolioService(PortafolioRepository portafolioRepository, Cloudinary cloudinary) {
         this.portafolioRepository = portafolioRepository;
+        this.cloudinary = cloudinary;
     }
 
     public List<Portafolio> getPortafolio() {
         return portafolioRepository.findAll();
     }
 
-    public void newPortafolio(Portafolio portafolio) {
+    public Portafolio portafolioById(Integer id) {
+        Optional<Portafolio> portafolioById = portafolioRepository.findById(id);
+        return portafolioById.orElse(null);
+    }
+
+    public void newPortafolio(String nombre, String descripcion, String urlrepo, String lenguajes, MultipartFile imagen) throws IOException {
+        Map uploadResult = cloudinary.uploader().upload(imagen.getBytes(), ObjectUtils.emptyMap());
+        String imageUrl = (String) uploadResult.get("url");
+
+        Portafolio portafolio = new Portafolio(nombre, descripcion, urlrepo, lenguajes, imageUrl);
+
         portafolioRepository.save(portafolio);
     }
 
-    public void update(Integer id, Portafolio portafolio) {
-        Optional<Portafolio> portafoliobyID = portafolioRepository.findById(id);
-        if (portafoliobyID.isPresent()) {
-            Portafolio portafolioExisting = portafoliobyID.get();
+    public void update(Integer id, String nombre, String descripcion, String urlrepo, String lenguajes, MultipartFile imagen) {
+        Portafolio portafolioEncontrado = portafolioById(id);
 
-            portafolioExisting.setNombre(portafolio.getNombre());
-            portafolioExisting.setDescripcion(portafolio.getDescripcion());
-            portafolioExisting.setUrlrepo(portafolio.getUrlrepo());
-            portafolioExisting.setLenguaje(portafolio.getLenguaje());
-            portafolioExisting.setImagen(portafolio.getImagen());
-            portafolioRepository.save(portafolioExisting);
+        if (portafolioEncontrado != null) {
+            try {
+                Map uploadResult = cloudinary.uploader().upload(imagen.getBytes(), ObjectUtils.emptyMap());
+                String imagenUrl = (String) uploadResult.get("url");
+
+                portafolioEncontrado.setNombre(nombre);
+                portafolioEncontrado.setDescripcion(descripcion);
+                portafolioEncontrado.setUrlrepo(urlrepo);
+                portafolioEncontrado.setLenguajes(lenguajes);
+                portafolioEncontrado.setImagen(imagenUrl);
+
+                portafolioRepository.save(portafolioEncontrado);
+            } catch (IOException e) {
+                // Maneja la excepción de manera apropiada
+            }
         }
     }
 
@@ -46,3 +70,5 @@ public class PortafolioService {
         }
     }
 }
+
+

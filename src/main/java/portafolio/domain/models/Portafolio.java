@@ -14,26 +14,27 @@ private Integer id;
 private String nombre;
 private String descripcion;
 private String urlrepo;
-private String lenguaje;
+private String lenguajes;
 private String imagen;
 
 public Portafolio() {
 
 }
 
-public Portafolio(Integer id, String nombre, String descripcion, String urlrepo, String lenguaje, String imagen ) {
+public Portafolio(Integer id, String nombre, String descripcion, String urlrepo, String lenguajes, String imagen ) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.urlrepo  = urlrepo;
-        this.lenguaje = lenguaje;
+        this.lenguajes = lenguajes;
         this.imagen= imagen;
         }
 
-public Portafolio(String nombre, String descripcion, String urlrepo, String lenguaje, String imagen   ) {
+public Portafolio(String nombre, String descripcion, String urlrepo, String lenguajes, String imagen   ) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.urlrepo = urlrepo;
+        this.lenguajes=lenguajes;
         this.imagen=imagen;
         }
 
@@ -67,12 +68,12 @@ public void setUrlrepo(String urlrepo) {
         this.urlrepo = urlrepo;
         }
 
-public String getLenguaje() {
-        return lenguaje;
+public String getLenguajes() {
+        return lenguajes;
         }
 
-public void setLenguaje(String lenguaje) {
-        this.lenguaje = lenguaje;
+public void setLenguajes(String lenguajes) {
+        this.lenguajes = lenguajes;
         }
 public String getImagen() {return imagen;}
 
