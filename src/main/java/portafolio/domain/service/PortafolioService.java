@@ -58,8 +58,11 @@ public class PortafolioService {
 
                 portafolioRepository.save(portafolioEncontrado);
             } catch (IOException e) {
-                // Maneja la excepción de manera apropiada
+
+
+                throw new RuntimeException("Error al cargar la imagen", e);
             }
+
         }
     }
 

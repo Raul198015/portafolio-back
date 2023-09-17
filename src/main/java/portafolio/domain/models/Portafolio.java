@@ -34,8 +34,8 @@ public Portafolio(String nombre, String descripcion, String urlrepo, String leng
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.urlrepo = urlrepo;
-        this.lenguajes=lenguajes;
-        this.imagen=imagen;
+        this.lenguajes= lenguajes;
+        this.imagen= imagen;
         }
 
 
