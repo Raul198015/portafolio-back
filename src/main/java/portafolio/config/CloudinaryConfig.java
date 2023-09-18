@@ -16,7 +16,7 @@ public class CloudinaryConfig {
         config.put("cloud_name", "dxdenyj7s");
         config.put("api_key", "232623317232594");
         config.put("api_secret", "IrRippKJmVHAULSNwyMGsxZmWdc");
-        config.put("secure", "true"); // Esto debería ser un String "true"
+        config.put("secure", "true");
 
         return new Cloudinary(config);
     }

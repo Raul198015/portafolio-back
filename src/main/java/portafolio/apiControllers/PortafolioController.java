@@ -26,13 +26,13 @@ public class PortafolioController {
     }
 
     @PostMapping
-    public void createPortafolio(@RequestParam String nombre,
-                                 @RequestParam String descripcion,
-                                 @RequestParam String urlrepo,
-                                 @RequestParam String lenguajes,
-                                 @RequestParam MultipartFile imagen
+        public void createPortafolio(@RequestParam String nombre,
+                @RequestParam String descripcion,
+                @RequestParam String urlrepo,
+                @RequestParam String lenguajes,
+                @RequestParam MultipartFile imagen
     ) throws IOException {
-        portafolioService.newPortafolio(nombre, descripcion, urlrepo, lenguajes, imagen);
+            portafolioService.newPortafolio(nombre, descripcion, urlrepo, lenguajes, imagen);
     }
 
     @PutMapping("/{id}")
